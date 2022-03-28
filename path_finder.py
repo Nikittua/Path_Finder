@@ -3,23 +3,31 @@ from curses import wrapper
 import queue
 import time
 
-maze = [
-    ["#", "O", "#", "#", "#", "#", "#", "#", "#"],
+testcase = [
+    ["#", "#", "O", "#", "#", "#", "#", "#", "#"],
     ["#", " ", " ", " ", " ", " ", " ", " ", "#"],
     ["#", " ", "#", "#", " ", "#", "#", " ", "#"],
     ["#", " ", "#", " ", " ", " ", "#", " ", "#"],
-    ["#", " ", "#", " ", "#", " ", "#", " ", "#"],
-    ["#", " ", "#", " ", "#", " ", "#", " ", "#"],
+    ["#", " ", "#", " ", "#", " ", " ", " ", "#"],
+    ["#", "#", "#", " ", " ", " ", "#", " ", "#"],
     ["#", " ", "#", " ", "#", " ", "#", "#", "#"],
     ["#", " ", " ", " ", " ", " ", " ", " ", "#"],
-    ["#", "#", "#", "#", "#", "#", "#", "X", "#"]
+    ["#", "#", "#", " ", "#", " ", "#", "#", "#"],
+    ["#", " ", " ", " ", " ", " ", " ", " ", "#"],
+    ["#", " ", "#", " ", "#", " ", "#", " ", "#"],
+    ["#", " ", " ", " ", "#", " ", "#", " ", "#"],
+    ["#", "#", " ", " #", " ", " ", " ", "X", "#"]
+
 ]
+
+
 def find_start(maze, start):
     for i, row in enumerate(maze):
         for j, value in enumerate(row):
             if value == start:
                 return i, j
     return None
+
 
 def find_free_ways(maze, row, col):
     freeways = []
@@ -33,6 +41,7 @@ def find_free_ways(maze, row, col):
         freeways.append((row, col + 1))
     return freeways
 
+
 def print_maze(maze, stdscr, path=[]):
     cyan = curses.color_pair(1)
     red = curses.color_pair(2)
@@ -40,7 +49,7 @@ def print_maze(maze, stdscr, path=[]):
     for i, row in enumerate(maze):
         for j, value in enumerate(row):
             if (i, j) in path:
-                stdscr.addstr(i, j * 2, "X", red)
+                stdscr.addstr(i, j * 2, "*", red)
             else:
                 stdscr.addstr(i, j * 2, value, cyan)
 
@@ -59,7 +68,7 @@ def find_path(maze, stdscr):
         row, col = current_pos
 
         stdscr.clear()
-        stdscr.addstr(10, 0, "Path = " + str(path))
+        # stdscr.addstr(10, 0, "Path = " + str(path))
         # stdscr.addstr(11, 7, str(visited))
         print_maze(maze, stdscr, path)
         time.sleep(0.1)
@@ -85,7 +94,8 @@ def main(stdscr):
     curses.init_pair(1, curses.COLOR_CYAN, curses.COLOR_BLACK)
     curses.init_pair(2, curses.COLOR_RED, curses.COLOR_BLACK)
 
-    find_path(maze, stdscr)
+    # print_maze(testcase, stdscr)
+    find_path(testcase, stdscr)
     stdscr.getch()
 
 
