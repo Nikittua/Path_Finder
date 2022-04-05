@@ -49,9 +49,9 @@ def print_maze(maze, stdscr, path=[]):
     for i, row in enumerate(maze):
         for j, value in enumerate(row):
             if (i, j) in path:
-                stdscr.addstr(i, j * 2, "*", red)
+                stdscr.addstr(i, j * 3, "*", red)
             else:
-                stdscr.addstr(i, j * 2, value, cyan)
+                stdscr.addstr(i, j * 3, value, cyan)
 
 
 def find_path(maze, stdscr):
